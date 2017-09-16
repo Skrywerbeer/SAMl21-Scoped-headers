@@ -2,7 +2,7 @@
 // File: mclk.hpp
 // Written by: Johan Grobler.
 // Started: 30/8/2017
-// Updated: 1/9/2017
+// Updated: 12/9/2017
 // ****************************************
 // Pointers to the Main Clock special
 // function registers.
@@ -12,13 +12,41 @@
 #define MCLK_HPP_
 
 #include "sfr.hpp"
-static const uint32_t MCLK_BASE_ADDR = 0x40000400;
+// ****************************************
+// Base addresses and offsets.
+// ****************************************
+namespace MCLK {
+	// Base address.
+	const uint32_t MCLK_BASE = 0x40000400;
+	// Interrupt Enable Clear Register offset.
+	const uint8_t INTENCLR_OFFSET = 0x01;
+	// Interrupt Enable Set Register offset.
+	const uint8_t INTENSET_OFFSET = 0x02;
+	// Interrupt Flag Status and Clear Register offset.
+	const uint8_t INTFLAG_OFFSET = 0x03;
+	// CPU Clock Division Register offset.
+	const uint8_t CPUDIV_OFFSET = 0x05;
+	// Low Power Clock Diviion Register offset.
+	const uint8_t LPDIV_OFFSET = 0x05;
+	// AHB Mask Register offset.
+	const uint8_t AHBMASK_OFFSET = 0x10;
+	// APBA Mask Register offset.
+	const uint8_t APBAMASK_OFFSET = 0x14;
+	// APBB Mask Register offset.
+	const uint8_t APBBMASK_OFFSET = 0x18;
+	// APBC Mask Register offset.
+	const uint8_t APBCMASK_OFFSET = 0x1c;
+	// APBD Mask Register offset.
+	const uint8_t APBDMASK_OFFSET = 0x20;
+	// APBE Mask Register offset.
+	const uint8_t APBEMASK_OFFSET = 0x24;
+}
 
 // ****************************************
 // Interrupt Enable Clear Register.
 // ****************************************
 namespace MCLK {
-	rw_sfr8 INTENCLR = __sfr8(MCLK_BASE_ADDR, 0x01);
+	rw_sfr8 INTENCLR = __sfr8(MCLK::MCLK_BASE, MCLK::INTENCLR_OFFSET);
 }
 
 // ****************************************
@@ -33,7 +61,7 @@ namespace MCLK_INTENCLR {
 // Interrupt Enable Set Register.
 // ****************************************
 namespace MCLK {
-	rw_sfr8 INTENSET = __sfr8(MCLK_BASE_ADDR, 0x02);
+	rw_sfr8 INTENSET = __sfr8(MCLK::MCLK_BASE, MCLK::INTENSET_OFFSET);
 }
 
 // ****************************************
@@ -48,7 +76,7 @@ namespace MCLK_INTENSET {
 // Interrupt Flag Status and Clear Register.
 // ****************************************
 namespace MCLK {
-	rw_sfr8 INTFLAG = __sfr8(MCLK_BASE_ADDR, 0x03);
+	rw_sfr8 INTFLAG = __sfr8(MCLK::MCLK_BASE, MCLK::INTFLAG_OFFSET);
 }
 
 // ****************************************
@@ -63,7 +91,7 @@ namespace MCLK_INTFLAG {
 // CPU Clock Division Register.
 // ****************************************
 namespace MCLK {
-	rw_sfr8 CPUDIV = __sfr8(MCLK_BASE_ADDR, 0x04); // Mistake in datasheet? Wrong offset?
+	rw_sfr8 CPUDIV = __sfr8(MCLK::MCLK_BASE, MCLK::CPUDIV_OFFSET);
 }
 
 // ****************************************
@@ -85,7 +113,7 @@ namespace MCLK_CPUDIV {
 // Low Power Clock Division Register.
 // ****************************************
 namespace MCLK {
-	rw_sfr8 LPDIV = __sfr8(MCLK_BASE_ADDR, 0x05);
+	rw_sfr8 LPDIV = __sfr8(MCLK::MCLK_BASE, LPDIV_OFFSET);
 }
 
 // ****************************************
@@ -107,7 +135,7 @@ namespace MCLK_LPDIV {
 // AHB Mask Register.
 // ****************************************
 namespace MCLK {
-	rw_sfr32 AHBMASK = __sfr32(MCLK_BASE_ADDR, 0x10);
+	rw_sfr32 AHBMASK = __sfr32(MCLK::MCLK_BASE, MCLK::AHBMASK_OFFSET);
 }
 
 // ****************************************
@@ -140,7 +168,7 @@ namespace MCLK_AHBMASK {
 // APBA Mask Register.
 // ****************************************
 namespace MCLK {
-	rw_sfr32 APBAMASK = __sfr32(MCLK_BASE_ADDR, 0x14);
+	rw_sfr32 APBAMASK = __sfr32(MCLK::MCLK_BASE, MCLK::APBAMASK_OFFSET);
 }
 
 // ****************************************
@@ -175,7 +203,7 @@ namespace MCLK_APBAMASK {
 // APBB Mask Register.
 // ****************************************
 namespace MCLK {
-	rw_sfr32 APBBMASK = __sfr32(MCLK_BASE_ADDR, 0x18);
+	rw_sfr32 APBBMASK = __sfr32(MCLK::MCLK_BASE, MCLK::APBBMASK_OFFSET);
 }
 
 // ****************************************
@@ -194,7 +222,7 @@ namespace MCLK_APBBMASK {
 // APBC Mask Register.
 // ****************************************
 namespace MCLK {
-	rw_sfr32 APBCMASK = __sfr32(MCLK_BASE_ADDR, 0x1c);
+	rw_sfr32 APBCMASK = __sfr32(MCLK::MCLK_BASE, MCLK::APBCMASK_OFFSET);
 }
 
 // ****************************************
@@ -228,7 +256,7 @@ namespace MCLK_APBCMASK {
 // APBD Mask Register.
 // ****************************************
 namespace MCLK {
-	rw_sfr32 APBDMASK = __sfr32(MCLK_BASE_ADDR, 0x20);
+	rw_sfr32 APBDMASK = __sfr32(MCLK::MCLK_BASE, MCLK::APBDMASK_OFFSET);
 }
 
 // ****************************************
@@ -257,7 +285,7 @@ namespace MCLK_APBDMASK {
 // APBE Mask Register.
 // ****************************************
 namespace MCLK {
-	rw_sfr32 APBEMASK = __sfr32(MCLK_BASE_ADDR, 0x24);
+	rw_sfr32 APBEMASK = __sfr32(MCLK::MCLK_BASE, MCLK::APBEMASK_OFFSET);
 }
 
 // ****************************************
@@ -268,4 +296,4 @@ namespace MCLK_APBEMASK {
 	const uint32_t PAC = (1 << 0);
 }
 
-#endif
+#endif	// MCLK_HPP_

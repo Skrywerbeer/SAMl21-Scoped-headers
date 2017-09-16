@@ -2,7 +2,7 @@
 // File: oscctrl.hpp
 // Written by: Johan Grobler.
 // Started: 1/9/2017
-// Updated: 2/9/2017
+// Updated: 12/9/2017
 // ****************************************
 // Special function registers of the
 // Oscillator Controller of the ATSAML21
@@ -13,13 +13,51 @@
 
 #include "sfr.hpp"
 
-static const uint32_t OSCCTRL_BASE_ADDR = 0x40000c00;
+// ****************************************
+// Base addresses and offsets.
+// ****************************************
+namespace OSCCTRL {
+	// Base address.
+	const uint32_t OSCCTRL_BASE = 0x40000c00;
+	// Interrupt Enable Clear Register offset.
+	const uint8_t INTENCLR_OFFSET = 0x00;
+	// Interrupt Enable Set Register offset.
+	const uint8_t INTENSET_OFFSET = 0x04;
+	// Interrupt Flag Status and Clear Register offset.
+	const uint8_t INTFLAG_OFFSET = 0x08;
+	// Status Register offset.
+	const uint8_t STATUS_OFFSET = 0x0c;
+	// External Multipurpose Crystal Oscillator Control Register offset.
+	const uint8_t XOSCCTRL_OFFSET = 0x10;
+	// 16MHz Internal Oscillator Control Register offset.
+	const uint8_t OSC16MCTRL_OFFSET = 0x14;
+	// DFLL48M Control Register offset.
+	const uint8_t DFLLCTRL_OFFSET = 0x18;
+	// DFLL48M Value Register offset.
+	const uint8_t DFLLVAL_OFFSET = 0x1c;
+	// DFLL48M Multiplier Register offset.
+	const uint8_t DFLLMUL_OFFSET = 0x20;
+	// DFLL48M Synchronization Register offset.
+	const uint8_t DFLLSYNC_OFFSET = 0x24;
+	// DPLL Control A Register offset.
+	const uint8_t DPLLCTRLA_OFFSET = 0x28;
+	// DPLL Ratio Control Register offset.
+	const uint8_t DPLLRATIO_OFFSET = 0x2c;
+	// DPLL Control B Register offset.
+	const uint8_t DPLLCTRLB_OFFSET = 0x30;
+	// DPLL Prescaler Register offset.
+	const uint8_t DPLLPRESC_OFFSET = 0x34;
+	// DPLL Synchronization Busy Register offset.
+	const uint8_t DPLLSYNCBUSY_OFFSET = 0x38;
+	// DPLL Status Register offset.
+	const uint8_t DPLLSTATUS_OFFSET = 0x3c;
+}
 
 // ****************************************
 // Interrupt Enable Clear Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr32 INTENCLR = __sfr32(OSCCTRL_BASE_ADDR, 0x00);
+	rw_sfr32 INTENCLR = __sfr32(OSCCTRL::OSCCTRL_BASE, OSCCTRL::INTENCLR_OFFSET);
 }
 
 // ****************************************
@@ -54,7 +92,7 @@ namespace OSCCTRL_INTENCLR {
 // Interrupt Enable Set Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr32 INTENSET = __sfr32(OSCCTRL_BASE_ADDR, 0x04);
+	rw_sfr32 INTENSET = __sfr32(OSCCTRL::OSCCTRL_BASE, OSCCTRL::INTENSET_OFFSET);
 }
 
 // ****************************************
@@ -89,7 +127,7 @@ namespace OSCCTRL_INTENSET {
 // Interrupt Flag Status and Clear Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr32 INTFLAG = __sfr32(OSCCTRL_BASE_ADDR, 0x08);
+	rw_sfr32 INTFLAG = __sfr32(OSCCTRL::OSCCTRL_BASE, OSCCTRL::INTFLAG_OFFSET);
 }
 
 // ****************************************
@@ -124,7 +162,7 @@ namespace OSCCTRL_INTFLAG {
 // Status Register.
 // ****************************************
 namespace OSCCTRL {
-	ro_sfr32 STATUS = __sfr32(OSCCTRL_BASE_ADDR, 0x0c);
+	ro_sfr32 STATUS = __sfr32(OSCCTRL::OSCCTRL_BASE, OSCCTRL::STATUS_OFFSET);
 }
 
 // ****************************************
@@ -160,7 +198,7 @@ namespace OSCCTRL_STATUS {
 // Oscillator Control Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr16 XOSCCTRL = __sfr16(OSCCTRL_BASE_ADDR, 0x10);
+	rw_sfr16 XOSCCTRL = __sfr16(OSCCTRL::OSCCTRL_BASE, OSCCTRL::XOSCCTRL_OFFSET);
 }
 
 // ****************************************
@@ -193,7 +231,7 @@ namespace OSCCTRL_XOSCCTRL {
 // 16MHz Internal Oscillator Control Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr8 OSC16MCTRL = __sfr8(OSCCTRL_BASE_ADDR, 0x14);
+	rw_sfr8 OSC16MCTRL = __sfr8(OSCCTRL::OSCCTRL_BASE, OSCCTRL::OSC16MCTRL_OFFSET);
 }
 
 // ****************************************
@@ -215,7 +253,7 @@ namespace OSCCTRL_OSC16MCTRL {
 // DFLL48M Control Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr16 DFLLCTRL = __sfr16(OSCCTRL_BASE_ADDR, 0x18);
+	rw_sfr16 DFLLCTRL = __sfr16(OSCCTRL::OSCCTRL_BASE, OSCCTRL::DFLLCTRL_OFFSET);
 }
 
 // ****************************************
@@ -244,14 +282,13 @@ namespace OSCCTRL_DFLLCTRL {
 	const uint16_t MODE = (1 << 2);
 	// DFLL Enable.
 	const uint16_t ENABLE = (1 << 1);
-	
 }
 
 // ****************************************
 // DFLL48M Value Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr16 DFLLVAL = __sfr16(OSCCTRL_BASE_ADDR, 0x1c);
+	rw_sfr16 DFLLVAL = __sfr16(OSCCTRL::OSCCTRL_BASE, OSCCTRL::DFLLVAL_OFFSET);
 }
 
 // ****************************************
@@ -302,7 +339,7 @@ namespace OSCCTRL_DFLLVAL {
 // DFLL48M Multiplier Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr32 DFLLMUL = __sfr32(OSCCTRL_BASE_ADDR, 0x20);
+	rw_sfr32 DFLLMUL = __sfr32(OSCCTRL::OSCCTRL_BASE, OSCCTRL::DFLLMUL_OFFSET);
 }
 
 // ****************************************
@@ -353,7 +390,7 @@ namespace OSCCTRL_DFLLMUL {
 // DFLL48M Synchronization Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr8 DFLLSYNC = __sfr8(OSCCTRL_BASE_ADDR, 0x24);
+	rw_sfr8 DFLLSYNC = __sfr8(OSCCTRL::OSCCTRL_BASE, OSCCTRL::DFLLSYNC_OFFSET);
 }
 
 // ****************************************
@@ -368,7 +405,7 @@ namespace OSCCTRL_DFLLSYNC {
 // DPLL Control A Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr8 DPLLCTRLA = __sfr8(OSCCTRL_BASE_ADDR, 0x28);
+	rw_sfr8 DPLLCTRLA = __sfr8(OSCCTRL::OSCCTRL_BASE, OSCCTRL::DPLLCTRLA_OFFSET);
 }
 
 // ****************************************
@@ -387,7 +424,7 @@ namespace OSCCTRL_DPLLCTRLA {
 // DPLL Ratio Control Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr32 DPLLRATIO = __sfr32(OSCCTRL_BASE_ADDR, 0x2c);
+	rw_sfr32 DPLLRATIO = __sfr32(OSCCTRL::OSCCTRL_BASE, OSCCTRL::DPLLRATIO_OFFSET);
 }
 
 // ****************************************
@@ -420,7 +457,7 @@ namespace OSCCTRL_DPLLRATIO {
 // DPLL Control B Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr32 DPLLCTRLB = __sfr32(OSCCTRL_BASE_ADDR, 0x30);
+	rw_sfr32 DPLLCTRLB = __sfr32(OSCCTRL::OSCCTRL_BASE, OSCCTRL::DPLLCTRLB_OFFSET);
 }
 
 // ****************************************
@@ -463,7 +500,7 @@ namespace OSCCTRL_DPLLCTRLB {
 // DPLL Prescaler Register.
 // ****************************************
 namespace OSCCTRL {
-	rw_sfr8 DPLLPRESC = __sfr8(OSCCTRL_BASE_ADDR, 0x34);
+	rw_sfr8 DPLLPRESC = __sfr8(OSCCTRL::OSCCTRL_BASE, DPLLPRESC_OFFSET);
 }
 
 // ****************************************
@@ -478,7 +515,7 @@ namespace OSCCTRL_DPLLPRESC {
 // DPLL Synchronization Busy Register.
 // ****************************************
 namespace OSCCTRL {
-	ro_sfr8 DPLLSYNCBUSY = __sfr8(OSCCTRL_BASE_ADDR, 0x38);
+	ro_sfr8 DPLLSYNCBUSY = __sfr8(OSCCTRL::OSCCTRL_BASE, OSCCTRL::DPLLSYNCBUSY_OFFSET);
 }
 
 // ****************************************
@@ -497,7 +534,7 @@ namespace OSCCTRL_DPLLSYNCBUSY {
 // DPLL Status Register.
 // ****************************************
 namespace OSCCTRL {
-	ro_sfr8 DPLLSTATUS = __sfr8(OSCCTRL_BASE_ADDR, 0x3c);
+	ro_sfr8 DPLLSTATUS = __sfr8(OSCCTRL::OSCCTRL_BASE, OSCCTRL::DPLLSTATUS_OFFSET);
 }
 
 // ****************************************
@@ -510,4 +547,4 @@ namespace OSCCTRL_DPLLSTATUS {
 	const uint8_t LOCK = (1 << 0);
 }
 
-#endif
+#endif	// OSCCTRL_HPP_

@@ -2,7 +2,7 @@
 // File: port.hpp
 // Written by: Johan Grobler.
 // Started: 28/8/2017
-// Updated: 28/8/2017
+// Updated: 12/9/2017
 // ****************************************
 // Constant pointers to the PORT special function
 // registers on the ATSAML21J18 mcu.
@@ -13,19 +13,93 @@
 
 #include "sfr.hpp"
 
-const unsigned int PORT_A_BASE_ADDR = 0x40002800;
-const unsigned int PORT_B_BASE_ADDR = 0x40002880;
+// ****************************************
+// Register base address and offsets.
+// ****************************************
+namespace PORT {
+	// Peripheral Base Addresses.
+	const uint32_t PORT_A_BASE = 0x40002800;
+	const uint32_t PORT_B_BASE = 0x40002880;
+	// Data Direction Register offset.
+	const uint8_t DIR_OFFSET = 0x00;
+	// Data Direction Clear Register offset.
+	const uint8_t DIRCLR_OFFSET = 0x04;
+	// Data Direction Set Register offset.
+	const uint8_t DIRSET_OFFSET = 0x08;
+	// Data Direction Toggle Register offset.
+	const uint8_t DIRTGL_OFFSET = 0x0c;
+	// Data Output Value Register offset.
+	const uint8_t OUT_OFFSET = 0x10;
+	// Data Output Value Clear Register offset.
+	const uint8_t OUTCLR_OFFSET = 0x14;
+	// Data Output Value Set Register offset.
+	const uint8_t OUTSET_OFFSET = 0x18;
+	// Data Output Value Toggle Register offset.
+	const uint8_t OUTTGL_OFFSET = 0x1c;
+	// Data Input Value Register offset.
+	const uint8_t IN_OFFSET = 0x20;
+	// Control Register offset.
+	const uint8_t CTRL_OFFSET = 0x24;
+	// Write Configuration Register offset.
+	const uint8_t WRCONFIG_OFFSET = 0x28;
+	// Event Input Control Register offset.
+	const uint8_t EVCTRL_OFFSET = 0x2c;
+	// Peripheral Multiplexing n Register offsets.
+	const uint8_t PMUX0_OFFSET = 0x30;
+	const uint8_t PMUX1_OFFSET = 0x31;
+	const uint8_t PMUX2_OFFSET = 0x32;
+	const uint8_t PMUX3_OFFSET = 0x33;
+	const uint8_t PMUX4_OFFSET = 0x34;
+	const uint8_t PMUX5_OFFSET = 0x35;
+	const uint8_t PMUX6_OFFSET = 0x36;
+	const uint8_t PMUX7_OFFSET = 0x37;
+	const uint8_t PMUX8_OFFSET = 0x38;
+	const uint8_t PMUX9_OFFSET = 0x39;
+	const uint8_t PMUX10_OFFSET = 0x3a;
+	const uint8_t PMUX11_OFFSET = 0x3b;
+	const uint8_t PMUX12_OFFSET = 0x3c;
+	const uint8_t PMUX13_OFFSET = 0x3d;
+	const uint8_t PMUX14_OFFSET = 0x3e;
+	const uint8_t PMUX15_OFFSET = 0x3f;
+	// Pin Configuration Register offsets.
+	const uint8_t PINCFG0_OFFSET = 0x40;
+	const uint8_t PINCFG1_OFFSET = 0x41;
+	const uint8_t PINCFG2_OFFSET = 0x42;
+	const uint8_t PINCFG3_OFFSET = 0x43;
+	const uint8_t PINCFG4_OFFSET = 0x44;
+	const uint8_t PINCFG5_OFFSET = 0x45;
+	const uint8_t PINCFG6_OFFSET = 0x46;
+	const uint8_t PINCFG7_OFFSET = 0x47;
+	const uint8_t PINCFG8_OFFSET = 0x48;
+	const uint8_t PINCFG9_OFFSET = 0x49;
+	const uint8_t PINCFG10_OFFSET = 0x4a;
+	const uint8_t PINCFG11_OFFSET = 0x4b;
+	const uint8_t PINCFG12_OFFSET = 0x4c;
+	const uint8_t PINCFG13_OFFSET = 0x4d;
+	const uint8_t PINCFG14_OFFSET = 0x4e;
+	const uint8_t PINCFG15_OFFSET = 0x4f;
+	const uint8_t PINCFG16_OFFSET = 0x50;
+	const uint8_t PINCFG17_OFFSET = 0x51;
+	const uint8_t PINCFG18_OFFSET = 0x52;
+	const uint8_t PINCFG19_OFFSET = 0x53;
+	const uint8_t PINCFG20_OFFSET = 0x54;
+	const uint8_t PINCFG21_OFFSET = 0x55;
+	const uint8_t PINCFG22_OFFSET = 0x56;
+	const uint8_t PINCFG23_OFFSET = 0x57;
+	const uint8_t PINCFG24_OFFSET = 0x58;
+	const uint8_t PINCFG25_OFFSET = 0x59;
+	const uint8_t PINCFG26_OFFSET = 0x5a;
+	const uint8_t PINCFG27_OFFSET = 0x5b;
+	const uint8_t PINCFG28_OFFSET = 0x5c;
+	const uint8_t PINCFG29_OFFSET = 0x5d;
+	const uint8_t PINCFG30_OFFSET = 0x5e;
+	const uint8_t PINCFG31_OFFSET = 0x5f;
+}
 
 // ****************************************
-// Data Direction Register.
+// Register Bits.
 // ****************************************
-namespace PORT_A {rw_sfr32 DIR = __sfr32(PORT_A_BASE_ADDR, 0);}
-namespace PORT_B {rw_sfr32 DIR = __sfr32(PORT_B_BASE_ADDR, 0);}
-
-// ****************************************
-// Data Direction Register Bits.
-// ****************************************
-namespace PORT_DIR_BITS {
+namespace PORT_BITS {
 	const uint32_t BIT0 = (1 << 0);
 	const uint32_t BIT1 = (1 << 1);
 	const uint32_t BIT2 = (1 << 2);
@@ -61,64 +135,114 @@ namespace PORT_DIR_BITS {
 }
 
 // ****************************************
+// Data Direction Register.
+// ****************************************
+namespace PORT_A {
+	rw_sfr32 DIR = __sfr32(PORT::PORT_A_BASE, PORT::DIR_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 DIR = __sfr32(PORT::PORT_B_BASE, PORT::DIR_OFFSET);
+}
+
+// ****************************************
 // Data Direction Clear Register.
 // ****************************************
-namespace PORT_A {rw_sfr32 DIRCLR = __sfr32(PORT_A_BASE_ADDR, 0x04);}
-namespace PORT_B {rw_sfr32 DIRCLR = __sfr32(PORT_B_BASE_ADDR, 0x04);}
+namespace PORT_A {
+	rw_sfr32 DIRCLR = __sfr32(PORT::PORT_A_BASE, PORT::DIRCLR_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 DIRCLR = __sfr32(PORT::PORT_B_BASE, PORT::DIRCLR_OFFSET);
+}
 
 // ****************************************
 // Data Direction Set Register.
 // ****************************************
-namespace PORT_A {rw_sfr32 DIRSET = __sfr32(PORT_A_BASE_ADDR, 0x08);}
-namespace PORT_B {rw_sfr32 DIRSET = __sfr32(PORT_B_BASE_ADDR, 0x08);}
+namespace PORT_A {
+	rw_sfr32 DIRSET = __sfr32(PORT::PORT_A_BASE, PORT::DIRSET_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 DIRSET = __sfr32(PORT::PORT_B_BASE, PORT::DIRSET_OFFSET);
+}
 
 // ****************************************
 // Data Direction Toggle Register.
 // ****************************************
-namespace PORT_A {rw_sfr32 DIRTGL = __sfr32(PORT_A_BASE_ADDR, 0x0C);}
-namespace PORT_B {rw_sfr32 DIRTGL = __sfr32(PORT_B_BASE_ADDR, 0x0C);}
+namespace PORT_A {
+	rw_sfr32 DIRTGL = __sfr32(PORT::PORT_A_BASE, PORT::DIRTGL_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 DIRTGL = __sfr32(PORT::PORT_B_BASE, PORT::DIRTGL_OFFSET);
+}
 
 // ****************************************
 // Data Output Value Register.
 // ****************************************
-namespace PORT_A {rw_sfr32 OUT = __sfr32(PORT_A_BASE_ADDR, 0x10);}
-namespace PORT_B {rw_sfr32 OUT = __sfr32(PORT_B_BASE_ADDR, 0x10);}
+namespace PORT_A {
+	rw_sfr32 OUT = __sfr32(PORT::PORT_A_BASE, PORT::OUT_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 OUT = __sfr32(PORT::PORT_B_BASE, PORT::OUT_OFFSET);
+}
 
 // ****************************************
 // Data Output Value Clear Register.
 // ****************************************
-namespace PORT_A {rw_sfr32 OUTCLR = __sfr32(PORT_A_BASE_ADDR, 0x14);}
-namespace PORT_B {rw_sfr32 OUTCLR = __sfr32(PORT_B_BASE_ADDR, 0x14);}
+namespace PORT_A {
+	rw_sfr32 OUTCLR = __sfr32(PORT::PORT_A_BASE, PORT::OUTCLR_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 OUTCLR = __sfr32(PORT::PORT_B_BASE, PORT::OUTCLR_OFFSET);
+}
 
 // ****************************************
 // Data Output Value Set Register.
 // ****************************************
-namespace PORT_A {rw_sfr32 OUTSET = __sfr32(PORT_A_BASE_ADDR, 0x18);}
-namespace PORT_B {rw_sfr32 OUTSET = __sfr32(PORT_B_BASE_ADDR, 0x18);}
+namespace PORT_A {
+	rw_sfr32 OUTSET = __sfr32(PORT::PORT_A_BASE, PORT::OUTSET_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 OUTSET = __sfr32(PORT::PORT_B_BASE, PORT::OUTSET_OFFSET);
+}
 
 // ****************************************
 // Data Output Value Toggle Register.
 // ****************************************
-namespace PORT_A {rw_sfr32 OUTTGL = __sfr32(PORT_A_BASE_ADDR, 0x1c);}
-namespace PORT_B {rw_sfr32 OUTTGL = __sfr32(PORT_B_BASE_ADDR, 0x1c);}
+namespace PORT_A {
+	rw_sfr32 OUTTGL = __sfr32(PORT::PORT_A_BASE, PORT::OUTTGL_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 OUTTGL = __sfr32(PORT::PORT_B_BASE, PORT::OUTTGL_OFFSET);
+}
 
 // ****************************************
 // Data Input Value Register.
 // ****************************************
-namespace PORT_A {rw_sfr32 IN = __sfr32(PORT_A_BASE_ADDR, 0x20);}
-namespace PORT_B {rw_sfr32 IN = __sfr32(PORT_B_BASE_ADDR, 0x20);}
+namespace PORT_A {
+	rw_sfr32 IN = __sfr32(PORT::PORT_A_BASE, PORT::IN_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 IN = __sfr32(PORT::PORT_B_BASE, PORT::IN_OFFSET);
+}
 
 // ****************************************
 // Control Register.
 // ****************************************
-namespace PORT_A {rw_sfr32 CTRL = __sfr32(PORT_A_BASE_ADDR, 0x24);}
-namespace PORT_B {rw_sfr32 CTRL = __sfr32(PORT_B_BASE_ADDR, 0x24);}
+namespace PORT_A {
+	rw_sfr32 CTRL = __sfr32(PORT::PORT_A_BASE, PORT::CTRL_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 CTRL = __sfr32(PORT::PORT_B_BASE, PORT::CTRL_OFFSET);
+}
 
 // ****************************************
 // Write Configuration Register.
 // ****************************************
-namespace PORT_A {rw_sfr32 WRCONFIG = __sfr32(PORT_A_BASE_ADDR, 0x28);}
-namespace PORT_B {rw_sfr32 WRCONFIG = __sfr32(PORT_B_BASE_ADDR, 0x28);}
+namespace PORT_A {
+	rw_sfr32 WRCONFIG = __sfr32(PORT::PORT_A_BASE, PORT::WRCONFIG_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 WRCONFIG = __sfr32(PORT::PORT_B_BASE, PORT::WRCONFIG_OFFSET);
+}
 
 // ****************************************
 // Write Configuration Register Bits.
@@ -156,8 +280,12 @@ namespace PORT_WRCONFIG {
 // ****************************************
 // Event Input Control Register.
 // ****************************************
-namespace PORT_A {rw_sfr32 EVCTRL = __sfr32(PORT_A_BASE_ADDR, 0x2c);}
-namespace PORT_B {rw_sfr32 EVCTRL = __sfr32(PORT_B_BASE_ADDR, 0x2c);}
+namespace PORT_A {
+	rw_sfr32 EVCTRL = __sfr32(PORT::PORT_A_BASE, PORT::EVCTRL_OFFSET);
+}
+namespace PORT_B {
+	rw_sfr32 EVCTRL = __sfr32(PORT::PORT_B_BASE, PORT::EVCTRL_OFFSET);
+}
 
 // ****************************************
 // Event Input Control Register Bits.
@@ -205,40 +333,40 @@ namespace PORT_EVCTRL {
 // Peripheral Multiplexing Registers.
 // ****************************************
 namespace PORT_A {
-	rw_sfr8 PMUX0 = __sfr8(PORT_A_BASE_ADDR, 0x30);
-	rw_sfr8 PMUX1 = __sfr8(PORT_A_BASE_ADDR, 0x31);
-	rw_sfr8 PMUX2 = __sfr8(PORT_A_BASE_ADDR, 0x32);
-	rw_sfr8 PMUX3 = __sfr8(PORT_A_BASE_ADDR, 0x33);
-	rw_sfr8 PMUX4 = __sfr8(PORT_A_BASE_ADDR, 0x34);
-	rw_sfr8 PMUX5 = __sfr8(PORT_A_BASE_ADDR, 0x35);
-	rw_sfr8 PMUX6 = __sfr8(PORT_A_BASE_ADDR, 0x36);
-	rw_sfr8 PMUX7 = __sfr8(PORT_A_BASE_ADDR, 0x37);
-	rw_sfr8 PMUX8 = __sfr8(PORT_A_BASE_ADDR, 0x38);
-	rw_sfr8 PMUX9 = __sfr8(PORT_A_BASE_ADDR, 0x39);
-	rw_sfr8 PMUX10 = __sfr8(PORT_A_BASE_ADDR, 0x3a);
-	rw_sfr8 PMUX11 = __sfr8(PORT_A_BASE_ADDR, 0x3b);
-	rw_sfr8 PMUX12 = __sfr8(PORT_A_BASE_ADDR, 0x3c);
-	rw_sfr8 PMUX13 = __sfr8(PORT_A_BASE_ADDR, 0x3d);
-	rw_sfr8 PMUX14 = __sfr8(PORT_A_BASE_ADDR, 0x3e);
-	rw_sfr8 PMUX15 = __sfr8(PORT_A_BASE_ADDR, 0x3f);
+	rw_sfr8 PMUX0 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX0_OFFSET);
+	rw_sfr8 PMUX1 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX1_OFFSET);
+	rw_sfr8 PMUX2 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX2_OFFSET);
+	rw_sfr8 PMUX3 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX3_OFFSET);
+	rw_sfr8 PMUX4 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX4_OFFSET);
+	rw_sfr8 PMUX5 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX5_OFFSET);
+	rw_sfr8 PMUX6 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX6_OFFSET);
+	rw_sfr8 PMUX7 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX7_OFFSET);
+	rw_sfr8 PMUX8 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX8_OFFSET);
+	rw_sfr8 PMUX9 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX9_OFFSET);
+	rw_sfr8 PMUX10 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX10_OFFSET);
+	rw_sfr8 PMUX11 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX11_OFFSET);
+	rw_sfr8 PMUX12 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX12_OFFSET);
+	rw_sfr8 PMUX13 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX13_OFFSET);
+	rw_sfr8 PMUX14 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX14_OFFSET);
+	rw_sfr8 PMUX15 = __sfr8(PORT::PORT_A_BASE, PORT::PMUX15_OFFSET);
 }
 namespace PORT_B {
-	rw_sfr8 PMUX0 = __sfr8(PORT_B_BASE_ADDR, 0x30);
-	rw_sfr8 PMUX1 = __sfr8(PORT_B_BASE_ADDR, 0x31);
-	rw_sfr8 PMUX2 = __sfr8(PORT_B_BASE_ADDR, 0x32);
-	rw_sfr8 PMUX3 = __sfr8(PORT_B_BASE_ADDR, 0x33);
-	rw_sfr8 PMUX4 = __sfr8(PORT_B_BASE_ADDR, 0x34);
-	rw_sfr8 PMUX5 = __sfr8(PORT_B_BASE_ADDR, 0x35);
-	rw_sfr8 PMUX6 = __sfr8(PORT_B_BASE_ADDR, 0x36);
-	rw_sfr8 PMUX7 = __sfr8(PORT_B_BASE_ADDR, 0x37);
-	rw_sfr8 PMUX8 = __sfr8(PORT_B_BASE_ADDR, 0x38);
-	rw_sfr8 PMUX9 = __sfr8(PORT_B_BASE_ADDR, 0x39);
-	rw_sfr8 PMUX10 = __sfr8(PORT_B_BASE_ADDR, 0x3a);
-	rw_sfr8 PMUX11 = __sfr8(PORT_B_BASE_ADDR, 0x3b);
-	rw_sfr8 PMUX12 = __sfr8(PORT_B_BASE_ADDR, 0x3c);
-	rw_sfr8 PMUX13 = __sfr8(PORT_B_BASE_ADDR, 0x3d);
-	rw_sfr8 PMUX14 = __sfr8(PORT_B_BASE_ADDR, 0x3e);
-	rw_sfr8 PMUX15 = __sfr8(PORT_B_BASE_ADDR, 0x3f);
+	rw_sfr8 PMUX0 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX0_OFFSET);
+	rw_sfr8 PMUX1 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX1_OFFSET);
+	rw_sfr8 PMUX2 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX2_OFFSET);
+	rw_sfr8 PMUX3 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX3_OFFSET);
+	rw_sfr8 PMUX4 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX4_OFFSET);
+	rw_sfr8 PMUX5 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX5_OFFSET);
+	rw_sfr8 PMUX6 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX6_OFFSET);
+	rw_sfr8 PMUX7 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX7_OFFSET);
+	rw_sfr8 PMUX8 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX8_OFFSET);
+	rw_sfr8 PMUX9 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX9_OFFSET);
+	rw_sfr8 PMUX10 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX10_OFFSET);
+	rw_sfr8 PMUX11 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX11_OFFSET);
+	rw_sfr8 PMUX12 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX12_OFFSET);
+	rw_sfr8 PMUX13 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX13_OFFSET);
+	rw_sfr8 PMUX14 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX14_OFFSET);
+	rw_sfr8 PMUX15 = __sfr8(PORT::PORT_B_BASE, PORT::PMUX15_OFFSET);
 }
 
 // ****************************************
@@ -259,72 +387,72 @@ namespace PORT_PMUX {
 // Pin Configuration Registers.
 // ****************************************
 namespace PORT_A {
-	rw_sfr8 PINCFG0 = __sfr8(PORT_A_BASE_ADDR, 0x40);
-	rw_sfr8 PINCFG1 = __sfr8(PORT_A_BASE_ADDR, 0x41);
-	rw_sfr8 PINCFG2 = __sfr8(PORT_A_BASE_ADDR, 0x42);
-	rw_sfr8 PINCFG3 = __sfr8(PORT_A_BASE_ADDR, 0x43);
-	rw_sfr8 PINCFG4 = __sfr8(PORT_A_BASE_ADDR, 0x44);
-	rw_sfr8 PINCFG5 = __sfr8(PORT_A_BASE_ADDR, 0x45);
-	rw_sfr8 PINCFG6 = __sfr8(PORT_A_BASE_ADDR, 0x46);
-	rw_sfr8 PINCFG7 = __sfr8(PORT_A_BASE_ADDR, 0x47);
-	rw_sfr8 PINCFG8 = __sfr8(PORT_A_BASE_ADDR, 0x48);
-	rw_sfr8 PINCFG9 = __sfr8(PORT_A_BASE_ADDR, 0x49);
-	rw_sfr8 PINCFG10 = __sfr8(PORT_A_BASE_ADDR, 0x4a);
-	rw_sfr8 PINCFG11 = __sfr8(PORT_A_BASE_ADDR, 0x4b);
-	rw_sfr8 PINCFG12 = __sfr8(PORT_A_BASE_ADDR, 0x4c);
-	rw_sfr8 PINCFG13 = __sfr8(PORT_A_BASE_ADDR, 0x4d);
-	rw_sfr8 PINCFG14 = __sfr8(PORT_A_BASE_ADDR, 0x4e);
-	rw_sfr8 PINCFG15 = __sfr8(PORT_A_BASE_ADDR, 0x4f);
-	rw_sfr8 PINCFG16 = __sfr8(PORT_A_BASE_ADDR, 0x50);
-	rw_sfr8 PINCFG17 = __sfr8(PORT_A_BASE_ADDR, 0x51);
-	rw_sfr8 PINCFG18 = __sfr8(PORT_A_BASE_ADDR, 0x52);
-	rw_sfr8 PINCFG19 = __sfr8(PORT_A_BASE_ADDR, 0x53);
-	rw_sfr8 PINCFG20 = __sfr8(PORT_A_BASE_ADDR, 0x54);
-	rw_sfr8 PINCFG21 = __sfr8(PORT_A_BASE_ADDR, 0x55);
-	rw_sfr8 PINCFG22 = __sfr8(PORT_A_BASE_ADDR, 0x56);
-	rw_sfr8 PINCFG23 = __sfr8(PORT_A_BASE_ADDR, 0x57);
-	rw_sfr8 PINCFG24 = __sfr8(PORT_A_BASE_ADDR, 0x58);
-	rw_sfr8 PINCFG25 = __sfr8(PORT_A_BASE_ADDR, 0x59);
-	rw_sfr8 PINCFG26 = __sfr8(PORT_A_BASE_ADDR, 0x5a);
-	rw_sfr8 PINCFG27 = __sfr8(PORT_A_BASE_ADDR, 0x5b);
-	rw_sfr8 PINCFG28 = __sfr8(PORT_A_BASE_ADDR, 0x5c);
-	rw_sfr8 PINCFG29 = __sfr8(PORT_A_BASE_ADDR, 0x5d);
-	rw_sfr8 PINCFG30 = __sfr8(PORT_A_BASE_ADDR, 0x5e);
-	rw_sfr8 PINCFG31 = __sfr8(PORT_A_BASE_ADDR, 0x5f);
+	rw_sfr8 PINCFG0 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG0_OFFSET);
+	rw_sfr8 PINCFG1 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG1_OFFSET);
+	rw_sfr8 PINCFG2 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG2_OFFSET);
+	rw_sfr8 PINCFG3 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG3_OFFSET);
+	rw_sfr8 PINCFG4 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG4_OFFSET);
+	rw_sfr8 PINCFG5 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG5_OFFSET);
+	rw_sfr8 PINCFG6 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG6_OFFSET);
+	rw_sfr8 PINCFG7 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG7_OFFSET);
+	rw_sfr8 PINCFG8 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG8_OFFSET);
+	rw_sfr8 PINCFG9 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG9_OFFSET);
+	rw_sfr8 PINCFG10 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG10_OFFSET);
+	rw_sfr8 PINCFG11 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG11_OFFSET);
+	rw_sfr8 PINCFG12 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG12_OFFSET);
+	rw_sfr8 PINCFG13 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG13_OFFSET);
+	rw_sfr8 PINCFG14 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG14_OFFSET);
+	rw_sfr8 PINCFG15 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG15_OFFSET);
+	rw_sfr8 PINCFG16 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG16_OFFSET);
+	rw_sfr8 PINCFG17 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG17_OFFSET);
+	rw_sfr8 PINCFG18 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG18_OFFSET);
+	rw_sfr8 PINCFG19 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG19_OFFSET);
+	rw_sfr8 PINCFG20 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG20_OFFSET);
+	rw_sfr8 PINCFG21 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG21_OFFSET);
+	rw_sfr8 PINCFG22 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG22_OFFSET);
+	rw_sfr8 PINCFG23 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG23_OFFSET);
+	rw_sfr8 PINCFG24 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG24_OFFSET);
+	rw_sfr8 PINCFG25 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG25_OFFSET);
+	rw_sfr8 PINCFG26 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG26_OFFSET);
+	rw_sfr8 PINCFG27 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG27_OFFSET);
+	rw_sfr8 PINCFG28 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG28_OFFSET);
+	rw_sfr8 PINCFG29 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG29_OFFSET);
+	rw_sfr8 PINCFG30 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG30_OFFSET);
+	rw_sfr8 PINCFG31 = __sfr8(PORT::PORT_A_BASE, PORT::PINCFG31_OFFSET);
 }
 namespace PORT_B {
-	rw_sfr8 PINCFG0 = __sfr8(PORT_B_BASE_ADDR, 0x40);
-	rw_sfr8 PINCFG1 = __sfr8(PORT_B_BASE_ADDR, 0x41);
-	rw_sfr8 PINCFG2 = __sfr8(PORT_B_BASE_ADDR, 0x42);
-	rw_sfr8 PINCFG3 = __sfr8(PORT_B_BASE_ADDR, 0x43);
-	rw_sfr8 PINCFG4 = __sfr8(PORT_B_BASE_ADDR, 0x44);
-	rw_sfr8 PINCFG5 = __sfr8(PORT_B_BASE_ADDR, 0x45);
-	rw_sfr8 PINCFG6 = __sfr8(PORT_B_BASE_ADDR, 0x46);
-	rw_sfr8 PINCFG7 = __sfr8(PORT_B_BASE_ADDR, 0x47);
-	rw_sfr8 PINCFG8 = __sfr8(PORT_B_BASE_ADDR, 0x48);
-	rw_sfr8 PINCFG9 = __sfr8(PORT_B_BASE_ADDR, 0x49);
-	rw_sfr8 PINCFG10 = __sfr8(PORT_B_BASE_ADDR, 0x4a);
-	rw_sfr8 PINCFG11 = __sfr8(PORT_B_BASE_ADDR, 0x4b);
-	rw_sfr8 PINCFG12 = __sfr8(PORT_B_BASE_ADDR, 0x4c);
-	rw_sfr8 PINCFG13 = __sfr8(PORT_B_BASE_ADDR, 0x4d);
-	rw_sfr8 PINCFG14 = __sfr8(PORT_B_BASE_ADDR, 0x4e);
-	rw_sfr8 PINCFG15 = __sfr8(PORT_B_BASE_ADDR, 0x4f);
-	rw_sfr8 PINCFG16 = __sfr8(PORT_B_BASE_ADDR, 0x50);
-	rw_sfr8 PINCFG17 = __sfr8(PORT_B_BASE_ADDR, 0x51);
-	rw_sfr8 PINCFG18 = __sfr8(PORT_B_BASE_ADDR, 0x52);
-	rw_sfr8 PINCFG19 = __sfr8(PORT_B_BASE_ADDR, 0x53);
-	rw_sfr8 PINCFG20 = __sfr8(PORT_B_BASE_ADDR, 0x54);
-	rw_sfr8 PINCFG21 = __sfr8(PORT_B_BASE_ADDR, 0x55);
-	rw_sfr8 PINCFG22 = __sfr8(PORT_B_BASE_ADDR, 0x56);
-	rw_sfr8 PINCFG23 = __sfr8(PORT_B_BASE_ADDR, 0x57);
-	rw_sfr8 PINCFG24 = __sfr8(PORT_B_BASE_ADDR, 0x58);
-	rw_sfr8 PINCFG25 = __sfr8(PORT_B_BASE_ADDR, 0x59);
-	rw_sfr8 PINCFG26 = __sfr8(PORT_B_BASE_ADDR, 0x5a);
-	rw_sfr8 PINCFG27 = __sfr8(PORT_B_BASE_ADDR, 0x5b);
-	rw_sfr8 PINCFG28 = __sfr8(PORT_B_BASE_ADDR, 0x5c);
-	rw_sfr8 PINCFG29 = __sfr8(PORT_B_BASE_ADDR, 0x5d);
-	rw_sfr8 PINCFG30 = __sfr8(PORT_B_BASE_ADDR, 0x5e);
-	rw_sfr8 PINCFG31 = __sfr8(PORT_B_BASE_ADDR, 0x5f);
+	rw_sfr8 PINCFG0 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG0_OFFSET);
+	rw_sfr8 PINCFG1 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG1_OFFSET);
+	rw_sfr8 PINCFG2 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG2_OFFSET);
+	rw_sfr8 PINCFG3 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG3_OFFSET);
+	rw_sfr8 PINCFG4 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG4_OFFSET);
+	rw_sfr8 PINCFG5 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG5_OFFSET);
+	rw_sfr8 PINCFG6 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG6_OFFSET);
+	rw_sfr8 PINCFG7 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG7_OFFSET);
+	rw_sfr8 PINCFG8 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG8_OFFSET);
+	rw_sfr8 PINCFG9 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG9_OFFSET);
+	rw_sfr8 PINCFG10 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG10_OFFSET);
+	rw_sfr8 PINCFG11 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG11_OFFSET);
+	rw_sfr8 PINCFG12 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG12_OFFSET);
+	rw_sfr8 PINCFG13 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG13_OFFSET);
+	rw_sfr8 PINCFG14 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG14_OFFSET);
+	rw_sfr8 PINCFG15 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG15_OFFSET);
+	rw_sfr8 PINCFG16 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG16_OFFSET);
+	rw_sfr8 PINCFG17 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG17_OFFSET);
+	rw_sfr8 PINCFG18 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG18_OFFSET);
+	rw_sfr8 PINCFG19 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG19_OFFSET);
+	rw_sfr8 PINCFG20 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG20_OFFSET);
+	rw_sfr8 PINCFG21 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG21_OFFSET);
+	rw_sfr8 PINCFG22 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG22_OFFSET);
+	rw_sfr8 PINCFG23 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG23_OFFSET);
+	rw_sfr8 PINCFG24 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG24_OFFSET);
+	rw_sfr8 PINCFG25 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG25_OFFSET);
+	rw_sfr8 PINCFG26 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG26_OFFSET);
+	rw_sfr8 PINCFG27 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG27_OFFSET);
+	rw_sfr8 PINCFG28 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG28_OFFSET);
+	rw_sfr8 PINCFG29 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG29_OFFSET);
+	rw_sfr8 PINCFG30 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG30_OFFSET);
+	rw_sfr8 PINCFG31 = __sfr8(PORT::PORT_B_BASE, PORT::PINCFG31_OFFSET);
 }
 
 // ****************************************
@@ -337,4 +465,4 @@ namespace PORT_PINCFG {
 	const uint8_t PMUXEN = (1 << 0);
 }
 
-#endif
+#endif	// PORT_HPP_
