@@ -2,7 +2,7 @@
 // File: sercom.hpp
 // Written by: Johan Grobler.
 // Started: 8/9/2017
-// Updated: 12/9/2017
+// Updated: 17/9/2017
 // ****************************************
 // SERCOM special function registers
 // of the ATSAML21J18 mcu in USART mode.
@@ -73,25 +73,30 @@ namespace USART_CTRLA {
 	// Communication Mode.
 	const uint32_t CMODE = (1 << 28);
 	// Frame Format.
-	const uint32_t FORM = 0x0f000000;
+	const uint32_t FORM_MASK = 0xf000000;
+	const uint8_t FORM_SHIFT = 24;
 	const uint32_t FORM3 = (1 << 27);
 	const uint32_t FORM2 = (1 << 26);
 	const uint32_t FORM1 = (1 << 25);
 	const uint32_t FORM0 = (1 << 24);
 	// Sample Adjustment.
-	const uint32_t SAMPA = 0x00c00000;
+	const uint32_t SAMPA_MASK = 0xc00000;
+	const uint8_t SAMPA_SHIFT = 22;
 	const uint32_t SAMPA1 = (1 << 23);
 	const uint32_t SAMPA0 = (1 << 22);
 	// Receive Data Pinout.
-	const uint32_t RXPO = 0x00300000;
+	const uint32_t RXPO_MASK = 0x300000;
+	const uint8_t RXPO_SHIFT = 20;
 	const uint32_t RXPO1 = (1 << 21);
 	const uint32_t RXPO0 = (1 << 20);
 	// Transmit Data Pinout.
-	const uint32_t TXPO = 0x00030000;
+	const uint32_t TXPO_MASK = 0x30000;
+	const uint8_t TXPO_SHIFT = 16;
 	const uint32_t TXPO1 = (1 << 17);
 	const uint32_t TXPO0 = (1 << 16);
 	// Sample Rate.
-	const uint32_t SAMPR = 0x0000e000;
+	const uint32_t SAMPR_MASK = 0xe000;
+	const uint8_t SAMPR_SHIFT = 13;
 	const uint32_t SAMPR2 = (1 << 15);
 	const uint32_t SAMPR1 = (1 << 14);
 	const uint32_t SAMPR0 = (1 << 13);
@@ -100,7 +105,8 @@ namespace USART_CTRLA {
 	// Run in Standby.
 	const uint32_t RUNSTDBY = (1 << 7);
 	// Operating Mode.
-	const uint32_t MODE = 0x0000001c;
+	const uint32_t MODE_MASK = 0x1c;
+	const uint8_t MODE_SHIFT = 2;
 	const uint32_t MODE2 = (1 << 4);
 	const uint32_t MODE1 = (1 << 3);
 	const uint32_t MODE0 = (1 << 2);
@@ -148,7 +154,8 @@ namespace USART_CTRLB {
 	// Stop Bit Mode.
 	const uint32_t SBMODE = (1 << 6);
 	// Character Size.
-	const uint32_t CHSIZE = 0x00000007;
+	const uint32_t CHSIZE_MASK = 0x7;
+	const uint8_t CHSIZE_SHIFT = 0;
 	const uint32_t CHSIZE2 = (1 << 2);
 	const uint32_t CHSIZE1 = (1 << 1);
 	const uint32_t CHSIZE0 = (1 << 0);
@@ -178,7 +185,8 @@ namespace USART4 {
 // ****************************************
 namespace USART_BAUD {
 	// Baud Value.
-	const uint16_t BAUD = 0xffff;
+	const uint16_t BAUD_MASK = 0xffff;
+	const uint8_t BAUD_SHIFT = 0;
 	const uint16_t BAUD15 = (1 << 15);
 	const uint16_t BAUD14 = (1 << 14);
 	const uint16_t BAUD13 = (1 << 13);
@@ -196,7 +204,8 @@ namespace USART_BAUD {
 	const uint16_t BAUD1 = (1 << 1);
 	const uint16_t BAUD0 = (1 << 0);
 	// Fractional Part.
-	const uint16_t FP = 0xe000;
+	const uint16_t FP_MASK = 0xe000;
+	const uint8_t FP_SHIFT = 13;
 	const uint16_t FP2 = (1 << 15);
 	const uint16_t FP1 = (1 << 14);
 	const uint16_t FP0 = (1 << 13);
@@ -226,7 +235,8 @@ namespace USART4 {
 // ****************************************
 namespace USART_RXPL {
 	// Recieve Pulse Length.
-	const uint8_t RXPL = 0xff;
+	const uint8_t RXPL_MASK = 0xff;
+	const uint8_t RXPL_SHIFT = 0
 	const uint8_t RXPL7 = (1 << 7);
 	const uint8_t RXPL6 = (1 << 6);
 	const uint8_t RXPL5 = (1 << 5);
@@ -446,7 +456,8 @@ namespace USART4 {
 // ****************************************
 namespace USART_DATA {
 	// Data.
-	const uint16_t DATA = 0x01ff;
+	const uint16_t DATA_MASK = 0x1ff;
+	const uint8_t DATA_SHIFT = 0;
 	const uint16_t DATA8 = (1 << 8);
 	const uint16_t DATA7 = (1 << 7);
 	const uint16_t DATA6 = (1 << 6);

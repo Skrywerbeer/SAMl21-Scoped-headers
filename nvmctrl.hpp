@@ -2,7 +2,7 @@
 // File: nvmctrl.hpp
 // Written by: Johan Grobler
 // Started: 13/9/2017
-// Updated: 13/9/2017
+// Updated: 17/9/2017
 // ****************************************
 // Non-Voltile Memory Conrtoller special
 // function registers of the ATSAML21J18
@@ -52,7 +52,8 @@ namespace NVMCTRL {
 // ****************************************
 namespace NVMCTRL_CTRLA {
 	// Command Execution.
-	const uint8_t CMDEX = 0xa5;
+	const uint8_t CMDEX_MASK = 0xa5;
+	const uint8_t CMDEX_SHIFT = 8;
 	// Commands.
 	const uint8_t ER = 0x02;		// Erase Row.
 	const uint8_t WP = 0x04;		// Write Page.
@@ -94,7 +95,8 @@ namespace NVMCTRL_CTRLB {
 	// Manual Write.
 	const uint32_t MANW = (1 << 7);
 	// NVM Read Wait States.
-	const uint32_t RWS = 0x1e;
+	const uint32_t RWS_MASK = 0x1e;
+	const uint8_t RWS_SHIFT = 1;
 	const uint32_t RWS3 = (1 << 4);
 	const uint32_t RWS2 = (1 << 3);
 	const uint32_t RWS1 = (1 << 2);
@@ -112,7 +114,29 @@ namespace NVMCTRL {
 // NVM Parameter bits.
 // ****************************************
 namespace NVMCTRL_PARAM {
-	// TODO: Add register bits.
+	// Read While Write EEPROM emulation area Pages.
+	const uint32_t RWWEEP_MASK = 0xfff00000;
+	const uint32_t RWWEEP = 20;
+	const uint32_t RWWEEP11 = (1 << 31);
+	const uint32_t RWWEEP10 = (1 << 30);
+	const uint32_t RWWEEP9 = (1 << 29);
+	const uint32_t RWWEEP8 = (1 << 28);
+	const uint32_t RWWEEP7 = (1 << 27);
+	const uint32_t RWWEEP6 = (1 << 26);
+	const uint32_t RWWEEP5 = (1 << 25);
+	const uint32_t RWWEEP4 = (1 << 24);
+	const uint32_t RWWEEP3 = (1 << 23);
+	const uint32_t RWWEEP2 = (1 << 22);
+	const uint32_t RWWEEP1 = (1 << 21);
+	const uint32_t RWWEEP0 = (1 << 20);
+	// Page Size.
+	const uint32_t PSZ_MASK = 0x70000;
+	const uint32_t PSZ = 16;
+	const uint32_t PSZ2 = (1 << 18);
+	const uint32_t PSZ1 = (1 << 17);
+	const uint32_t PSZ0 = (1 << 16);
+	// NVM Pages.
+	const uint32_t NVMP_MASK = 0xffff;
 }
 
 // ****************************************

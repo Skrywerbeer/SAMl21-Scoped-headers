@@ -2,7 +2,7 @@
 // File: oscctrl.hpp
 // Written by: Johan Grobler.
 // Started: 1/9/2017
-// Updated: 12/9/2017
+// Updated: 17/9/2017
 // ****************************************
 // Special function registers of the
 // Oscillator Controller of the ATSAML21
@@ -296,7 +296,8 @@ namespace OSCCTRL {
 // ****************************************
 namespace OSCCTRL_DFLLVAL {
 	// Multiplication Ratio Difference.
-	const uint32_t DIFF = 0xffff0000;
+	const uint32_t DIFF_MASK = 0xffff0000;
+	const uint8_t DIFF_SHIFT = 16;
 	const uint32_t DIFF15 = (1 << 31);
 	const uint32_t DIFF14 = (1 << 30);
 	const uint32_t DIFF13 = (1 << 29);
@@ -314,7 +315,8 @@ namespace OSCCTRL_DFLLVAL {
 	const uint32_t DIFF1 = (1 << 17);
 	const uint32_t DIFF0 = (1 << 16);
 	// Coarse Value.
-	const uint32_t COARSE = 0xfc00;
+	const uint32_t COARSE_MASK = 0xfc00;
+	const uint8_t COARSE_SHIFT = 10;
 	const uint32_t COARSE5 = (1 << 15);
 	const uint32_t COARSE4 = (1 << 14);
 	const uint32_t COARSE3 = (1 << 13);
@@ -322,7 +324,8 @@ namespace OSCCTRL_DFLLVAL {
 	const uint32_t COARSE1 = (1 << 11);
 	const uint32_t COARSE0 = (1 << 10);
 	// Fine Value
-	const uint32_t FINE = 0x3ff;
+	const uint32_t FINE_MASK = 0x3ff;
+	const uint8_t FINE_SHIFT = 0;
 	const uint32_t FINE9 = (1 << 9);
 	const uint32_t FINE8 = (1 << 8);
 	const uint32_t FINE7 = (1 << 7);
@@ -347,7 +350,8 @@ namespace OSCCTRL {
 // ****************************************
 namespace OSCCTRL_DFLLMUL {
 	// Coarse Maximum Step.
-	const uint32_t CSTEP = 0xfc000000;
+	const uint32_t CSTEP_MASK = 0xfc000000;
+	const uint8_t CSTEP_SHIFT = 26;
 	const uint32_t CSTEP5 = (1 << 31);
 	const uint32_t CSTEP4 = (1 << 30);
 	const uint32_t CSTEP3 = (1 << 29);
@@ -355,7 +359,8 @@ namespace OSCCTRL_DFLLMUL {
 	const uint32_t CSTEP1 = (1 << 27);
 	const uint32_t CSTEP0 = (1 << 26);
 	// Fine Maximum Step.
-	const uint32_t FSTEP = 0x3ff0000;
+	const uint32_t FSTEP_MASK = 0x3ff0000;
+	const uint8_t FSTEP_SHIFT = 16;
 	const uint32_t FSTEP9 = (1 << 25);
 	const uint32_t FSTEP8 = (1 << 24);
 	const uint32_t FSTEP7 = (1 << 23);
@@ -367,7 +372,8 @@ namespace OSCCTRL_DFLLMUL {
 	const uint32_t FSTEP1 = (1 << 17);
 	const uint32_t FSTEP0 = (1 << 16);
 	// DFLL Multiply Factor.
-	const uint32_t MUL = 0xffff;
+	const uint32_t MUL_MASK = 0xffff;
+	const uint8_t MUL_SHIFT = 0;
 	const uint32_t MUL15 = (1 << 15);
 	const uint32_t MUL14 = (1 << 14);
 	const uint32_t MUL13 = (1 << 13);
@@ -432,13 +438,15 @@ namespace OSCCTRL {
 // ****************************************
 namespace OSCCTRL_DPLLRATIO {
 	// Loop Divider Ratio Fractional Part.
-	const uint32_t LDRFRAC = 0xf0000;
+	const uint32_t LDRFRAC_MASK = 0xf0000;
+	const uint8_t LDRFRAC_SHIFT = 16;
 	const uint32_t LDRFRAC3 = (1 << 19);
 	const uint32_t LDRFRAC2 = (1 << 18);
 	const uint32_t LDRFRAC1 = (1 << 17);
 	const uint32_t LDRFRAC0 = (1 << 16);
 	// Loop Divider Ratio.
-	const uint32_t LDR = 0xfff;
+	const uint32_t LDR_MASK = 0xfff;
+	const uint8_t LDR_SHIFT = 0;
 	const uint32_t LDR11 = (1 << 11);
 	const uint32_t LDR10 = (1 << 10);
 	const uint32_t LDR9 = (1 << 9);
@@ -465,7 +473,8 @@ namespace OSCCTRL {
 // ****************************************
 namespace OSCCTRL_DPLLCTRLB {
 	// Clock Divider.
-	const uint32_t DIV = 0x7ff0000;
+	const uint32_t DIV_MASK = 0x7ff0000;
+	const uint8_t DIV_SHIFT = 16;
 	const uint32_t DIV10 = (1 << 26);
 	const uint32_t DIV9 = (1 << 25);
 	const uint32_t DIV8 = (1 << 24);
@@ -480,7 +489,8 @@ namespace OSCCTRL_DPLLCTRLB {
 	// Lock Bypass.
 	const uint32_t LBYPASS = (1 << 12);
 	// Lock Time.
-	const uint32_t LTIME = 0x700;
+	const uint32_t LTIME_MASK = 0x700;
+	const uint8_t LTIME_SHIFT = 8;
 	const uint32_t LTIME2 = (1 << 10);
 	const uint32_t LTIME1 = (1 << 9);
 	const uint32_t LTIME0 = (1 << 8);

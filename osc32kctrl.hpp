@@ -2,7 +2,7 @@
 // File: osc32kctrl.hpp
 // Written by: Johan Grobler.
 // Started: 4/9/2017
-// Updated: 12/9/2017
+// Updated: 17/9/2017
 // ****************************************
 // 32KHz Oscillator Controller special
 // function registers of the ATSAML21J18.
@@ -117,7 +117,8 @@ namespace OSC32KCTRL {
 // ****************************************
 namespace OSC32KCTRL_RTCCTRL {
 	// RTC Clock Source Selection.
-	const uint32_t RTCSEL = 0x7;
+	const uint32_t RTCSEL_MASK = 0x7;
+	const uint8_t RTCSEL_SHIFT = 0;
 	const uint32_t RTCSEL2 = (1 << 2);
 	const uint32_t RTCSEL1 = (1 << 1);
 	const uint32_t RTCSEL0 = (1 << 0);
@@ -139,7 +140,8 @@ namespace OSC32KCTRL_XOSC32K {
 	// Write Lock.
 	const uint32_t WRTLOCK = (1 << 12);
 	// Oscillator Start-Up Time.
-	const uint32_t STARTUP = 0x700;
+	const uint32_t STARTUP_MASK = 0x700;
+	const uint8_t STARTUP_SHIFT = 8;
 	const uint32_t STARTUP2 = (1 << 10);
 	const uint32_t STARTUP1 = (1 << 9);
 	const uint32_t STARTUP0 = (1 << 8);
@@ -171,7 +173,8 @@ namespace OSC32KCTRL {
 // ****************************************
 namespace OSC32KCTRL_OSC32K {
 	// Oscillator Calibration.
-	const uint32_t CALIB = 0x7f0000;
+	const uint32_t CALIB_MASK = 0x7f0000;
+	const uint8_t CALIB_SHIFT = 16;
 	const uint32_t CALIB6 = (1 << 22);
 	const uint32_t CALIB5 = (1 << 21);
 	const uint32_t CALIB4 = (1 << 20);
@@ -182,7 +185,8 @@ namespace OSC32KCTRL_OSC32K {
 	// Write Lock.
 	const uint32_t WRTLOCK = (1 << 12);
 	// Oscillator Start-Up Time.
-	const uint32_t STARTUP = 0x700;
+	const uint32_t STARTUP_MASK = 0x700;
+	const uint8_t STARTUP_SHIFT = 8;
 	const uint32_t STARTUP2 = (1 << 10);
 	const uint32_t STARTUP1 = (1 << 9);
 	const uint32_t STARTUP0 = (1 << 8);
@@ -214,7 +218,8 @@ namespace OSC32KCTRL_OSCULP32K {
 	// Write Lock.
 	const uint32_t WRTLOCK = (1 << 15);
 	// Oscillator Calibration.
-	const uint32_t CALIB = 0x1f00;
+	const uint32_t CALIB_MASK = 0x1f00;
+	const uint8_t CALIB_SHIFT = 8;
 	const uint32_t CALIB4 = (1 << 12);
 	const uint32_t CALIB3 = (1 << 11);
 	const uint32_t CALIB2 = (1 << 10);
